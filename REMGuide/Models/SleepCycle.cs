@@ -7,7 +7,7 @@ namespace REMGuide.Models
 {
     public class SleepCycle
     {
-        public int MyProperty { get; set; }
+        public int Id { get; set; }
         public int UserId { get; set; }
         public DateTime Date { get; set; }
         public int Disruptions { get; set; }
