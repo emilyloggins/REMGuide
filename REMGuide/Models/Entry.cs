@@ -12,6 +12,8 @@ namespace REMGuide.Models
         public string Title { get; set; }
         public string Description { get; set; }
         public DateTime Date { get; set; }
-        public List<ThemeEntry> ThemeEntries = new List<ThemeEntry>();
+        public List<Theme> Themes { get; set; }
+        public List<ThemeEntry> ThemeEntries { get; set; }
+
     }
 }
