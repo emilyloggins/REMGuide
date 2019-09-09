@@ -4,35 +4,37 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
-
+<h1>your entries</h1>
 <p>
-    <a asp-action="Create">Create New</a>
+<button type="button" asp-action="Create"class="btn btn-warning">create new!</button>
 </p>
-    @foreach (var item in Model)
-    {
-<div class="card border-dark mb-3" style="max-width: 18rem;">
 
-    <div class="card-header">
-        @Html.DisplayFor(modelItem => item.Title)
-    </div>
-    <div class="card-body text-dark">
-        @Html.DisplayFor(modelItem => item.Date)
-        <hr />
-        @Html.DisplayFor(modelItem => item.Description)
-    </div>
-    <div class="card-footer small bg-transparent border-dark">
-        @foreach (var i in item.ThemeEntries)
-        {
-            @Html.DisplayFor(modelItem => i.Theme.Name) <br />
-        }
-    </div>
+@foreach (var item in Model)
+{
+    <div class="card text-white bg-primary mb-3" style="max-width: 20rem;">
 
+        <div class="card-header">
+            @Html.DisplayFor(modelItem => item.Date)
+        </div>
+        <div class="card-body">
+            <h4 class="card-title">
+                @Html.DisplayFor(modelItem => item.Title)
+            </h4>
+            <p class="card-text">
+                @Html.DisplayFor(modelItem => item.Description)
+            </p>
+        </div>
+        <div class="card-footer small bg-transparent border-dark">
+            @foreach (var i in item.ThemeEntries)
+            {
+                @Html.DisplayFor(modelItem => i.Theme.Name) <br />
+            }
+        </div>
     </div>
-    }
+}
 
-    @*<td>
+@*<td>
             <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
             <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
             <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-        </td>*@
+    </td>*@
