@@ -14,7 +14,13 @@ namespace REMGuide.Data
 
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
 
-        public DbSet<REMGuide.Models.Entry> Entry { get; set; }
+        public DbSet<Entry> Entry { get; set; }
+        public DbSet<SleepCycle> SleepCycle { get; set; }
+        public DbSet<Theme> Theme { get; set; }
+        public DbSet<ThemeEntry> ThemeEntry { get; set; }
+
+
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
