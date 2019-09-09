@@ -23,6 +23,8 @@ namespace REMGuide.Controllers
         public async Task<IActionResult> Index()
         {
             return View(await _context.Entry
+                .Include(e => e.ThemeEntries)
+                .ThenInclude(t => t.Theme)
                 .ToListAsync());
         }
 

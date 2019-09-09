@@ -76,6 +76,26 @@ namespace REMGuide.Data
                    Disruptions = 4
                }
             );
+            modelBuilder.Entity<ThemeEntry>().HasData(
+                new ThemeEntry()
+                {
+                    Id = 1,
+                    EntryId = 1,
+                    ThemeId = 2
+                },
+                new ThemeEntry()
+                {
+                    Id = 2,
+                    EntryId = 1,
+                    ThemeId = 9
+                },
+                new ThemeEntry()
+                {
+                    Id = 3,
+                    EntryId = 2,
+                    ThemeId = 5
+                }
+            );
 
             modelBuilder.Entity<Theme>().HasData(
                 new Theme()
