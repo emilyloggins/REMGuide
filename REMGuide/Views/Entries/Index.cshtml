@@ -19,6 +19,9 @@
                 @Html.DisplayNameFor(model => model.Title)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.Description)
             </th>
             <th>
@@ -36,6 +39,12 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Title)
             </td>
+            @foreach (var i in item.ThemeEntries)
+            {
+        <td>
+                @Html.DisplayFor(modelItem => i.Theme.Name)
+        </td>
+            }
             <td>
                 @Html.DisplayFor(modelItem => item.Description)
             </td>
