@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using REMGuide.Data;
 
 namespace REMGuide.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190909020727_ThemeEntryViewModel")]
+    partial class ThemeEntryViewModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -194,7 +196,7 @@ namespace REMGuide.Migrations
                         {
                             Id = "00000000-ffff-ffff-ffff-ffffffffffff",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "384e6a5f-1531-45f4-a60f-34f86e0c2b47",
+                            ConcurrencyStamp = "c861d829-bb32-4f36-b4ec-bb2491611097",
                             Email = "admin@admin.com",
                             EmailConfirmed = true,
                             FirstName = "admin",
@@ -202,7 +204,7 @@ namespace REMGuide.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAED9Cd2UDZDl4DdzQR/u6FJ5PRUfTrrr7G8MmM2HEnyQl/XTtLdkMmfLrzkpRGgD0+Q==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEB1WOsPTTvvpSSGmvTE2kaE9cbypsceQnDrKMhYNAARiMIFyi242VLI6WuTnt4mzaQ==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "7f434309-a4d9-48e9-9ebb-8803db794577",
                             TwoFactorEnabled = false,
@@ -220,11 +222,15 @@ namespace REMGuide.Migrations
 
                     b.Property<string>("Description");
 
+                    b.Property<int?>("ThemeEntryViewModelId");
+
                     b.Property<string>("Title");
 
                     b.Property<int>("UserId");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ThemeEntryViewModelId");
 
                     b.ToTable("Entry");
 
@@ -267,14 +273,14 @@ namespace REMGuide.Migrations
                         new
                         {
                             Id = 1,
-                            Date = new DateTime(2019, 9, 8, 22, 28, 20, 36, DateTimeKind.Local).AddTicks(7167),
+                            Date = new DateTime(2019, 9, 8, 21, 7, 26, 676, DateTimeKind.Local).AddTicks(167),
                             Disruptions = 2,
                             UserId = 1
                         },
                         new
                         {
                             Id = 2,
-                            Date = new DateTime(2019, 9, 8, 22, 28, 20, 42, DateTimeKind.Local).AddTicks(641),
+                            Date = new DateTime(2019, 9, 8, 21, 7, 26, 680, DateTimeKind.Local).AddTicks(3742),
                             Disruptions = 4,
                             UserId = 1
                         });
@@ -286,13 +292,13 @@ namespace REMGuide.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("EntryId");
-
                     b.Property<string>("Name");
+
+                    b.Property<int?>("ThemeEntryViewModelId");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("EntryId");
+                    b.HasIndex("ThemeEntryViewModelId");
 
                     b.ToTable("Theme");
 
@@ -391,11 +397,18 @@ namespace REMGuide.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("EntryId");
-
-                    b.HasIndex("ThemeId");
-
                     b.ToTable("ThemeEntry");
+                });
+
+            modelBuilder.Entity("REMGuide.Models.ViewModels.ThemeEntryViewModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ThemeEntryViewModel");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -443,24 +456,18 @@ namespace REMGuide.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("REMGuide.Models.Theme", b =>
+            modelBuilder.Entity("REMGuide.Models.Entry", b =>
                 {
-                    b.HasOne("REMGuide.Models.Entry")
-                        .WithMany("Themes")
-                        .HasForeignKey("EntryId");
+                    b.HasOne("REMGuide.Models.ViewModels.ThemeEntryViewModel")
+                        .WithMany("Entries")
+                        .HasForeignKey("ThemeEntryViewModelId");
                 });
 
-            modelBuilder.Entity("REMGuide.Models.ThemeEntry", b =>
+            modelBuilder.Entity("REMGuide.Models.Theme", b =>
                 {
-                    b.HasOne("REMGuide.Models.Entry")
-                        .WithMany("ThemeEntries")
-                        .HasForeignKey("EntryId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("REMGuide.Models.Theme", "Theme")
-                        .WithMany()
-                        .HasForeignKey("ThemeId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                    b.HasOne("REMGuide.Models.ViewModels.ThemeEntryViewModel")
+                        .WithMany("Themes")
+                        .HasForeignKey("ThemeEntryViewModelId");
                 });
 #pragma warning restore 612, 618
         }

@@ -22,7 +22,8 @@ namespace REMGuide.Controllers
         // GET: Entries
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Entry.ToListAsync());
+            return View(await _context.Entry
+                .ToListAsync());
         }
 
         // GET: Entries/Details/5
