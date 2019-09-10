@@ -10,25 +10,23 @@ using REMGuide.Models;
 
 namespace REMGuide.Controllers
 {
-    public class EntriesController : Controller
+    public class SleepCyclesController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public EntriesController(ApplicationDbContext context)
+        public SleepCyclesController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: Entries
+        // GET: SleepCycles
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Entry
-                .Include(e => e.ThemeEntries)
-                .ThenInclude(t => t.Theme)
-                .ToListAsync());
+            var applicationDbContext = _context.SleepCycle.Include(s => s.User);
+            return View(await applicationDbContext.ToListAsync());
         }
 
-        // GET: Entries/Details/5
+        // GET: SleepCycles/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -36,51 +34,42 @@ namespace REMGuide.Controllers
                 return NotFound();
             }
 
-            var entry = await _context.Entry
+            var sleepCycle = await _context.SleepCycle
+                .Include(s => s.User)
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (entry == null)
+            if (sleepCycle == null)
             {
                 return NotFound();
             }
 
-            return View(entry);
+            return View(sleepCycle);
         }
 
-        // GET: Entries/Create
+        // GET: SleepCycles/Create
         public IActionResult Create()
         {
+            ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id");
             return View();
         }
 
-        // POST: Entries/Create
+        // POST: SleepCycles/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,UserId,Title,Description,Date")] Entry entry)
+        public async Task<IActionResult> Create([Bind("Id,UserId,Date,Disruptions")] SleepCycle sleepCycle)
         {
             if (ModelState.IsValid)
             {
-                List<Theme> themes = await _context.Theme.ToListAsync();
-                var checkBoxListItems = new List<CheckBoxListItem>();
-                foreach (var theme in themes)
-                {
-                    checkBoxListItems.Add(new CheckBoxListItem()
-                    {
-                        Id = theme.Id,
-                        Display = theme.Name,
-                        IsChecked = false
-                    });
-                }
-                entry.Themes = checkBoxListItems;
-                _context.Add(entry);
+                _context.Add(sleepCycle);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(entry);
+            ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", sleepCycle.UserId);
+            return View(sleepCycle);
         }
 
-        // GET: Entries/Edit/5
+        // GET: SleepCycles/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -88,22 +77,23 @@ namespace REMGuide.Controllers
                 return NotFound();
             }
 
-            var entry = await _context.Entry.FindAsync(id);
-            if (entry == null)
+            var sleepCycle = await _context.SleepCycle.FindAsync(id);
+            if (sleepCycle == null)
             {
                 return NotFound();
             }
-            return View(entry);
+            ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", sleepCycle.UserId);
+            return View(sleepCycle);
         }
 
-        // POST: Entries/Edit/5
+        // POST: SleepCycles/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,UserId,Title,Description,Date")] Entry entry)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,UserId,Date,Disruptions")] SleepCycle sleepCycle)
         {
-            if (id != entry.Id)
+            if (id != sleepCycle.Id)
             {
                 return NotFound();
             }
@@ -112,12 +102,12 @@ namespace REMGuide.Controllers
             {
                 try
                 {
-                    _context.Update(entry);
+                    _context.Update(sleepCycle);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!EntryExists(entry.Id))
+                    if (!SleepCycleExists(sleepCycle.Id))
                     {
                         return NotFound();
                     }
@@ -128,10 +118,11 @@ namespace REMGuide.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(entry);
+            ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", sleepCycle.UserId);
+            return View(sleepCycle);
         }
 
-        // GET: Entries/Delete/5
+        // GET: SleepCycles/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -139,30 +130,31 @@ namespace REMGuide.Controllers
                 return NotFound();
             }
 
-            var entry = await _context.Entry
+            var sleepCycle = await _context.SleepCycle
+                .Include(s => s.User)
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (entry == null)
+            if (sleepCycle == null)
             {
                 return NotFound();
             }
 
-            return View(entry);
+            return View(sleepCycle);
         }
 
-        // POST: Entries/Delete/5
+        // POST: SleepCycles/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var entry = await _context.Entry.FindAsync(id);
-            _context.Entry.Remove(entry);
+            var sleepCycle = await _context.SleepCycle.FindAsync(id);
+            _context.SleepCycle.Remove(sleepCycle);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool EntryExists(int id)
+        private bool SleepCycleExists(int id)
         {
-            return _context.Entry.Any(e => e.Id == id);
+            return _context.SleepCycle.Any(e => e.Id == id);
         }
     }
 }

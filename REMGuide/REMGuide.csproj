@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="wwwroot\img\guide.png" />
     <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap.min.css" />
   </ItemGroup>
 
@@ -23,7 +24,7 @@
 
 
   <ItemGroup>
-    <Folder Include="Models\ViewModels\" />
+    <Folder Include="wwwroot\img\" />
   </ItemGroup>
 
 </Project>
