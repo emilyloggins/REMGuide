@@ -19,8 +19,6 @@ namespace REMGuide.Data
         public DbSet<Theme> Theme { get; set; }
         public DbSet<ThemeEntry> ThemeEntry { get; set; }
 
-        public DbSet<CheckBoxListItem> CheckBoxListItem { get; set; }
-
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -44,18 +42,24 @@ namespace REMGuide.Data
             user.PasswordHash = passwordHash.HashPassword(user, "Admin8*");
             modelBuilder.Entity<ApplicationUser>().HasData(user);
 
+            modelBuilder.Entity<Entry>()
+            .Property(x => x.Id)
+            .ValueGeneratedOnAdd();
+
+            modelBuilder.Entity<SleepCycle>()
+            .Property(x => x.Id)
+            .ValueGeneratedOnAdd();
+
             modelBuilder.Entity<Entry>().HasData(
                 new Entry()
                 {
                     Id = 1,
-                    UserId = 1,
                     Title = "Bathtub Full of Marshmellows",
                     Description = "In the beginning, Heather and I were hanging out, wondering what we could do for fun. So we went to Walmart and bought 1000 marshmellows, and filled the bathtub with as many as we could. After that we ate all of them and I threw up on Heather"
                 },
                 new Entry()
                 {
                     Id = 2,
-                    UserId = 1,
                     Title = "Flying",
                     Description = "I was flying over the entire earth, and I saw all of my friends and family waving at me from high above the clouds. I waved back at them, and kept flying until I get to France. In France I ate a croissant."
                 }
@@ -65,14 +69,12 @@ namespace REMGuide.Data
                 new SleepCycle()
                 {
                     Id = 1,
-                    UserId = 1,
                     Date = DateTime.Now,
                     Disruptions = 2
                 },
                new SleepCycle()
                {
                    Id = 2,
-                   UserId = 1,
                    Date = DateTime.Now,
                    Disruptions = 4
                }
