@@ -19,6 +19,7 @@ namespace REMGuide.Data
         public DbSet<Theme> Theme { get; set; }
         public DbSet<ThemeEntry> ThemeEntry { get; set; }
 
+        public DbSet<CheckBoxListItem> CheckBoxListItem { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

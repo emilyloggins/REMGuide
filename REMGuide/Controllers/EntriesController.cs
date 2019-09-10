@@ -61,6 +61,18 @@ namespace REMGuide.Controllers
         {
             if (ModelState.IsValid)
             {
+                List<Theme> themes = await _context.Theme.ToListAsync();
+                var checkBoxListItems = new List<CheckBoxListItem>();
+                foreach (var theme in themes)
+                {
+                    checkBoxListItems.Add(new CheckBoxListItem()
+                    {
+                        Id = theme.Id,
+                        Display = theme.Name,
+                        IsChecked = false
+                    });
+                }
+                entry.Themes = checkBoxListItems;
                 _context.Add(entry);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

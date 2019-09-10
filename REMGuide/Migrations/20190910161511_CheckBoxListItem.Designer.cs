@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using REMGuide.Data;
 
 namespace REMGuide.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190910161511_CheckBoxListItem")]
+    partial class CheckBoxListItem
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -194,7 +196,7 @@ namespace REMGuide.Migrations
                         {
                             Id = "00000000-ffff-ffff-ffff-ffffffffffff",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "8c387874-643f-4fb4-8176-a421fe5424ba",
+                            ConcurrencyStamp = "9eb4f527-734d-4100-814d-5bf656d8a6b7",
                             Email = "admin@admin.com",
                             EmailConfirmed = true,
                             FirstName = "admin",
@@ -202,7 +204,7 @@ namespace REMGuide.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEDK758cs41AeMFlB007c4WB+Wos2gywup/Wd5TXKQFNXbb/JeDMKLUQCdi+sJ+34HQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAELfUbx45i+CvBfCCWfLpxlm8QFhnNzzA1Qz+TR2mLFGA9e+zxgr1U0+Cjkx4VR3QIQ==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "7f434309-a4d9-48e9-9ebb-8803db794577",
                             TwoFactorEnabled = false,
@@ -286,14 +288,14 @@ namespace REMGuide.Migrations
                         new
                         {
                             Id = 1,
-                            Date = new DateTime(2019, 9, 10, 11, 22, 57, 199, DateTimeKind.Local).AddTicks(1533),
+                            Date = new DateTime(2019, 9, 10, 11, 15, 11, 143, DateTimeKind.Local).AddTicks(3648),
                             Disruptions = 2,
                             UserId = 1
                         },
                         new
                         {
                             Id = 2,
-                            Date = new DateTime(2019, 9, 10, 11, 22, 57, 201, DateTimeKind.Local).AddTicks(7271),
+                            Date = new DateTime(2019, 9, 10, 11, 15, 11, 147, DateTimeKind.Local).AddTicks(9072),
                             Disruptions = 4,
                             UserId = 1
                         });
