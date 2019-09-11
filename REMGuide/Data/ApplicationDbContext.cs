@@ -54,12 +54,14 @@ namespace REMGuide.Data
                 new Entry()
                 {
                     Id = 1,
+                    UserId = user.Id,
                     Title = "Bathtub Full of Marshmellows",
                     Description = "In the beginning, Heather and I were hanging out, wondering what we could do for fun. So we went to Walmart and bought 1000 marshmellows, and filled the bathtub with as many as we could. After that we ate all of them and I threw up on Heather"
                 },
                 new Entry()
                 {
                     Id = 2,
+                    UserId = user.Id,
                     Title = "Flying",
                     Description = "I was flying over the entire earth, and I saw all of my friends and family waving at me from high above the clouds. I waved back at them, and kept flying until I get to France. In France I ate a croissant."
                 }
@@ -69,12 +71,14 @@ namespace REMGuide.Data
                 new SleepCycle()
                 {
                     Id = 1,
+                    UserId = user.Id,
                     Date = DateTime.Now,
                     Disruptions = 2
                 },
                new SleepCycle()
                {
                    Id = 2,
+                   UserId = user.Id,
                    Date = DateTime.Now,
                    Disruptions = 4
                }

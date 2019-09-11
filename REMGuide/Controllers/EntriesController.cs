@@ -2,17 +2,21 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using REMGuide.Data;
 using REMGuide.Models;
+using REMGuide.Models.ViewModels;
 
 namespace REMGuide.Controllers
 {
     public class EntriesController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
+        private UserManager<ApplicationUser> userManager;
 
         public EntriesController(ApplicationDbContext context)
         {
@@ -47,9 +51,24 @@ namespace REMGuide.Controllers
         }
 
         // GET: Entries/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            return View();
+            var vm = new CreateEntryViewModel();
+
+            var themes =  await _context.Theme.ToListAsync();
+
+            var checkBoxListItems = new List<CheckBoxListItem>();
+            foreach (var theme in themes)
+            {
+                checkBoxListItems.Add(new CheckBoxListItem()
+                {
+                    Id = theme.Id,
+                    Display = theme.Name,
+                    IsChecked = false
+                });
+            }
+            vm.Themes = checkBoxListItems;
+            return View(vm);
         }
 
         // POST: Entries/Create
@@ -61,18 +80,6 @@ namespace REMGuide.Controllers
         {
             if (ModelState.IsValid)
             {
-                List<Theme> themes = await _context.Theme.ToListAsync();
-                var checkBoxListItems = new List<CheckBoxListItem>();
-                foreach (var theme in themes)
-                {
-                    checkBoxListItems.Add(new CheckBoxListItem()
-                    {
-                        Id = theme.Id,
-                        Display = theme.Name,
-                        IsChecked = false
-                    });
-                }
-                entry.Themes = checkBoxListItems;
                 _context.Add(entry);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
