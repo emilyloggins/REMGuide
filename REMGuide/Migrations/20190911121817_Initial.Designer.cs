@@ -10,8 +10,8 @@ using REMGuide.Data;
 namespace REMGuide.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190910185944_Removed CheckBox DBSet")]
-    partial class RemovedCheckBoxDBSet
+    [Migration("20190911121817_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -196,7 +196,7 @@ namespace REMGuide.Migrations
                         {
                             Id = "00000000-ffff-ffff-ffff-ffffffffffff",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "abd962bc-e14a-468b-bd9d-8b6e7ef31a2e",
+                            ConcurrencyStamp = "f98a4fde-b383-41da-a20d-6e73647e1279",
                             Email = "admin@admin.com",
                             EmailConfirmed = true,
                             FirstName = "admin",
@@ -204,7 +204,7 @@ namespace REMGuide.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAECAPgSpAmHJxy9VcOZ36Wxaonj7aWbNiy59gT4FMUdNJhSsVpmO0g32XHMmbBhsTnA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAENbSlJ8gn8s5RLvW+3hIHkgqi419XEAyMVdjsQXNDx08VKvcXWpMwczsgn21w9yCFQ==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "7f434309-a4d9-48e9-9ebb-8803db794577",
                             TwoFactorEnabled = false,
@@ -258,7 +258,7 @@ namespace REMGuide.Migrations
                             Date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "In the beginning, Heather and I were hanging out, wondering what we could do for fun. So we went to Walmart and bought 1000 marshmellows, and filled the bathtub with as many as we could. After that we ate all of them and I threw up on Heather",
                             Title = "Bathtub Full of Marshmellows",
-                            UserId = "1"
+                            UserId = "00000000-ffff-ffff-ffff-ffffffffffff"
                         },
                         new
                         {
@@ -266,7 +266,7 @@ namespace REMGuide.Migrations
                             Date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "I was flying over the entire earth, and I saw all of my friends and family waving at me from high above the clouds. I waved back at them, and kept flying until I get to France. In France I ate a croissant.",
                             Title = "Flying",
-                            UserId = "1"
+                            UserId = "00000000-ffff-ffff-ffff-ffffffffffff"
                         });
                 });
 
@@ -280,9 +280,11 @@ namespace REMGuide.Migrations
 
                     b.Property<int>("Disruptions");
 
-                    b.Property<int>("UserId");
+                    b.Property<string>("UserId");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("SleepCycle");
 
@@ -290,16 +292,16 @@ namespace REMGuide.Migrations
                         new
                         {
                             Id = 1,
-                            Date = new DateTime(2019, 9, 10, 13, 59, 43, 747, DateTimeKind.Local).AddTicks(6737),
+                            Date = new DateTime(2019, 9, 11, 7, 18, 17, 139, DateTimeKind.Local).AddTicks(948),
                             Disruptions = 2,
-                            UserId = 1
+                            UserId = "00000000-ffff-ffff-ffff-ffffffffffff"
                         },
                         new
                         {
                             Id = 2,
-                            Date = new DateTime(2019, 9, 10, 13, 59, 43, 750, DateTimeKind.Local).AddTicks(7996),
+                            Date = new DateTime(2019, 9, 11, 7, 18, 17, 141, DateTimeKind.Local).AddTicks(4659),
                             Disruptions = 4,
-                            UserId = 1
+                            UserId = "00000000-ffff-ffff-ffff-ffffffffffff"
                         });
                 });
 
@@ -490,6 +492,13 @@ namespace REMGuide.Migrations
                 });
 
             modelBuilder.Entity("REMGuide.Models.Entry", b =>
+                {
+                    b.HasOne("REMGuide.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("REMGuide.Models.SleepCycle", b =>
                 {
                     b.HasOne("REMGuide.Models.ApplicationUser", "User")
                         .WithMany()

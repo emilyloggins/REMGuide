@@ -1,4 +1,4 @@
-﻿@model REMGuide.Models.Entry
+﻿@model REMGuide.Models.ViewModels.CreateEntryViewModel
 
 @{
     ViewData["Title"] = "Create";
@@ -6,40 +6,52 @@
 
 <h1>Create</h1>
 
-<h4>Entry</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="UserId" class="control-label"></label>
-                <input asp-for="UserId" class="form-control" />
-                <span asp-validation-for="UserId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Title" class="control-label"></label>
-                <input asp-for="Title" class="form-control" />
-                <span asp-validation-for="Title" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" class="form-control" />
-                <span asp-validation-for="Description" class="text-danger"></span>
-            </div>
-            <div>
-                @Html.EditorFor(x => x.Themes)
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+@using (Html.BeginForm())
+{
+    <div>
+        <div>
+            @Html.LabelFor(x => x.Entry.Title)
+            @Html.TextBoxFor(x => x.Entry.Title)
+        </div>
+        <div>
+            @Html.LabelFor(x => x.Entry.Description)
+            @Html.EditorFor(x => x.Entry.Description)
+        </div>
+        <div>
+            @Html.EditorFor(x => x.Themes)
+        </div>
+        <input type="submit" value="Go!" />
     </div>
-</div>
+}
+@*<h4>Entry</h4>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Title" class="control-label"></label>
+                    <input asp-for="Title" class="form-control" />
+                    <span asp-validation-for="Title" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Description" class="control-label"></label>
+                    <input asp-for="Description" class="form-control" />
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+                <div>
+                    @Html.EditorFor(x => x.Themes)
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+    <div>
+        <a asp-action="Index">Back to List</a>
+    </div>*@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

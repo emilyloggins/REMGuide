@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace REMGuide.Migrations
 {
-    public partial class DBSets : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -50,37 +50,6 @@ namespace REMGuide.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Entry",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    UserId = table.Column<int>(nullable: false),
-                    Title = table.Column<string>(nullable: true),
-                    Description = table.Column<string>(nullable: true),
-                    Date = table.Column<DateTime>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Entry", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "SleepCycle",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    UserId = table.Column<int>(nullable: false),
-                    Date = table.Column<DateTime>(nullable: false),
-                    Disruptions = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_SleepCycle", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Theme",
                 columns: table => new
                 {
@@ -91,20 +60,6 @@ namespace REMGuide.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Theme", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ThemeEntry",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    EntryId = table.Column<int>(nullable: false),
-                    ThemeId = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ThemeEntry", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -213,28 +168,100 @@ namespace REMGuide.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Entry",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    UserId = table.Column<string>(nullable: true),
+                    Title = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: true),
+                    Date = table.Column<DateTime>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Entry", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Entry_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "SleepCycle",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    UserId = table.Column<string>(nullable: true),
+                    Date = table.Column<DateTime>(nullable: false),
+                    Disruptions = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SleepCycle", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_SleepCycle_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "CheckBoxListItem",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Display = table.Column<string>(nullable: true),
+                    IsChecked = table.Column<bool>(nullable: false),
+                    EntryId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CheckBoxListItem", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_CheckBoxListItem_Entry_EntryId",
+                        column: x => x.EntryId,
+                        principalTable: "Entry",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ThemeEntry",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    EntryId = table.Column<int>(nullable: false),
+                    ThemeId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ThemeEntry", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ThemeEntry_Entry_EntryId",
+                        column: x => x.EntryId,
+                        principalTable: "Entry",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ThemeEntry_Theme_ThemeId",
+                        column: x => x.ThemeId,
+                        principalTable: "Theme",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "00000000-ffff-ffff-ffff-ffffffffffff", 0, "aa273449-9362-438d-938b-604fb801ca1a", "admin@admin.com", true, "admin", "admin", false, null, "ADMIN@ADMIN.COM", "ADMIN@ADMIN.COM", "AQAAAAEAACcQAAAAEC6bLzXarFy2X5qtpG0YBMjpDKMljroz82M9+YuuwhlWdFGmkz/teDXA/6dvKV+21g==", null, false, "7f434309-a4d9-48e9-9ebb-8803db794577", false, "admin@admin.com" });
-
-            migrationBuilder.InsertData(
-                table: "Entry",
-                columns: new[] { "Id", "Date", "Description", "Title", "UserId" },
-                values: new object[,]
-                {
-                    { 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "In the beginning, Heather and I were hanging out, wondering what we could do for fun. So we went to Walmart and bought 1000 marshmellows, and filled the bathtub with as many as we could. After that we ate all of them and I threw up on Heather", "Bathtub Full of Marshmellows", 1 },
-                    { 2, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "I was flying over the entire earth, and I saw all of my friends and family waving at me from high above the clouds. I waved back at them, and kept flying until I get to France. In France I ate a croissant.", "Flying", 1 }
-                });
-
-            migrationBuilder.InsertData(
-                table: "SleepCycle",
-                columns: new[] { "Id", "Date", "Disruptions", "UserId" },
-                values: new object[,]
-                {
-                    { 1, new DateTime(2019, 9, 6, 15, 57, 24, 671, DateTimeKind.Local).AddTicks(2116), 2, 1 },
-                    { 2, new DateTime(2019, 9, 6, 15, 57, 24, 673, DateTimeKind.Local).AddTicks(8941), 4, 1 }
-                });
+                values: new object[] { "00000000-ffff-ffff-ffff-ffffffffffff", 0, "f98a4fde-b383-41da-a20d-6e73647e1279", "admin@admin.com", true, "admin", "admin", false, null, "ADMIN@ADMIN.COM", "ADMIN@ADMIN.COM", "AQAAAAEAACcQAAAAENbSlJ8gn8s5RLvW+3hIHkgqi419XEAyMVdjsQXNDx08VKvcXWpMwczsgn21w9yCFQ==", null, false, "7f434309-a4d9-48e9-9ebb-8803db794577", false, "admin@admin.com" });
 
             migrationBuilder.InsertData(
                 table: "Theme",
@@ -247,9 +274,9 @@ namespace REMGuide.Migrations
                     { 11, "Violence" },
                     { 10, "Study" },
                     { 9, "Charity" },
+                    { 15, "Jealousy" },
                     { 8, "Adventure" },
                     { 6, "Loss" },
-                    { 15, "Jealousy" },
                     { 5, "Abandonment" },
                     { 4, "Friendship" },
                     { 3, "Romance" },
@@ -258,6 +285,39 @@ namespace REMGuide.Migrations
                     { 7, "Family" },
                     { 16, "Insanity" }
                 });
+
+            migrationBuilder.InsertData(
+                table: "Entry",
+                columns: new[] { "Id", "Date", "Description", "Title", "UserId" },
+                values: new object[,]
+                {
+                    { 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "In the beginning, Heather and I were hanging out, wondering what we could do for fun. So we went to Walmart and bought 1000 marshmellows, and filled the bathtub with as many as we could. After that we ate all of them and I threw up on Heather", "Bathtub Full of Marshmellows", "00000000-ffff-ffff-ffff-ffffffffffff" },
+                    { 2, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "I was flying over the entire earth, and I saw all of my friends and family waving at me from high above the clouds. I waved back at them, and kept flying until I get to France. In France I ate a croissant.", "Flying", "00000000-ffff-ffff-ffff-ffffffffffff" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "SleepCycle",
+                columns: new[] { "Id", "Date", "Disruptions", "UserId" },
+                values: new object[,]
+                {
+                    { 1, new DateTime(2019, 9, 11, 7, 18, 17, 139, DateTimeKind.Local).AddTicks(948), 2, "00000000-ffff-ffff-ffff-ffffffffffff" },
+                    { 2, new DateTime(2019, 9, 11, 7, 18, 17, 141, DateTimeKind.Local).AddTicks(4659), 4, "00000000-ffff-ffff-ffff-ffffffffffff" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "ThemeEntry",
+                columns: new[] { "Id", "EntryId", "ThemeId" },
+                values: new object[] { 1, 1, 2 });
+
+            migrationBuilder.InsertData(
+                table: "ThemeEntry",
+                columns: new[] { "Id", "EntryId", "ThemeId" },
+                values: new object[] { 2, 1, 9 });
+
+            migrationBuilder.InsertData(
+                table: "ThemeEntry",
+                columns: new[] { "Id", "EntryId", "ThemeId" },
+                values: new object[] { 3, 2, 5 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -297,6 +357,31 @@ namespace REMGuide.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CheckBoxListItem_EntryId",
+                table: "CheckBoxListItem",
+                column: "EntryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Entry_UserId",
+                table: "Entry",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SleepCycle_UserId",
+                table: "SleepCycle",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ThemeEntry_EntryId",
+                table: "ThemeEntry",
+                column: "EntryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ThemeEntry_ThemeId",
+                table: "ThemeEntry",
+                column: "ThemeId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -317,19 +402,22 @@ namespace REMGuide.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Entry");
+                name: "CheckBoxListItem");
 
             migrationBuilder.DropTable(
                 name: "SleepCycle");
-
-            migrationBuilder.DropTable(
-                name: "Theme");
 
             migrationBuilder.DropTable(
                 name: "ThemeEntry");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
+
+            migrationBuilder.DropTable(
+                name: "Entry");
+
+            migrationBuilder.DropTable(
+                name: "Theme");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

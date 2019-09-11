@@ -2,17 +2,21 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using REMGuide.Data;
 using REMGuide.Models;
+using REMGuide.Models.ViewModels;
 
 namespace REMGuide.Controllers
 {
     public class EntriesController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
+        private UserManager<ApplicationUser> userManager;
 
         public EntriesController(ApplicationDbContext context)
         {
@@ -47,9 +51,24 @@ namespace REMGuide.Controllers
         }
 
         // GET: Entries/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            return View();
+            var vm = new CreateEntryViewModel();
+
+            var themes =  await _context.Theme.ToListAsync();
+
+            var checkBoxListItems = new List<CheckBoxListItem>();
+            foreach (var theme in themes)
+            {
+                checkBoxListItems.Add(new CheckBoxListItem()
+                {
+                    Id = theme.Id,
+                    Display = theme.Name,
+                    IsChecked = false
+                });
+            }
+            vm.Themes = checkBoxListItems;
+            return View(vm);
         }
 
         // POST: Entries/Create
@@ -57,22 +76,22 @@ namespace REMGuide.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,UserId,Title,Description,Date")] Entry entry)
+        public async Task<IActionResult> Create([Bind("Id,UserId,Title,Description,Date")] Entry entry, CreateEntryViewModel model)
         {
             if (ModelState.IsValid)
             {
-                List<Theme> themes = await _context.Theme.ToListAsync();
-                var checkBoxListItems = new List<CheckBoxListItem>();
-                foreach (var theme in themes)
+                var selected = model.Themes.Where(x => x.IsChecked).Select(x => x.Id).ToList();
+                entry.ThemeEntries = new List<ThemeEntry>();
+
+                foreach (var s in selected)
                 {
-                    checkBoxListItems.Add(new CheckBoxListItem()
+                    ThemeEntry te = new ThemeEntry()
                     {
-                        Id = theme.Id,
-                        Display = theme.Name,
-                        IsChecked = false
-                    });
+                        EntryId = entry.Id,
+                        ThemeId = s
+                    };
+                    entry.ThemeEntries.Add(te);
                 }
-                entry.Themes = checkBoxListItems;
                 _context.Add(entry);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

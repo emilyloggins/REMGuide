@@ -7,14 +7,10 @@ using System.Threading.Tasks;
 
 namespace REMGuide.Models.ViewModels
 {
-    public class AddEntryVM
+    public class CreateEntryViewModel
     {
         public Entry Entry { get; set; }
         public List<CheckBoxListItem> Themes { get; set; }
-
-        public AddEntryVM()
-        {
-            Themes = new List<CheckBoxListItem>();
-        }
+        public List<ThemeEntry> ThemeEntries { get; set; }
     }
 }
