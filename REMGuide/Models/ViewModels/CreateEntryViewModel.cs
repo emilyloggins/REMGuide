@@ -11,5 +11,6 @@ namespace REMGuide.Models.ViewModels
     {
         public Entry Entry { get; set; }
         public List<CheckBoxListItem> Themes { get; set; }
+        public List<ThemeEntry> ThemeEntries { get; set; }
     }
 }

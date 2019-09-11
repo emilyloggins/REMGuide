@@ -76,10 +76,22 @@ namespace REMGuide.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,UserId,Title,Description,Date")] Entry entry)
+        public async Task<IActionResult> Create([Bind("Id,UserId,Title,Description,Date")] Entry entry, CreateEntryViewModel model)
         {
             if (ModelState.IsValid)
             {
+                var selected = model.Themes.Where(x => x.IsChecked).Select(x => x.Id).ToList();
+                entry.ThemeEntries = new List<ThemeEntry>();
+
+                foreach (var s in selected)
+                {
+                    ThemeEntry te = new ThemeEntry()
+                    {
+                        EntryId = entry.Id,
+                        ThemeId = s
+                    };
+                    entry.ThemeEntries.Add(te);
+                }
                 _context.Add(entry);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
