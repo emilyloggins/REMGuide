@@ -4,6 +4,8 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using REMGuide.Data;
 using REMGuide.Models;
 
 namespace REMGuide.Controllers
@@ -12,12 +14,9 @@ namespace REMGuide.Controllers
     {
         private readonly ApplicationDbContext _context;
 
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            return View(await _context.Entry
-                .Include(e => e.ThemeEntries)
-                .ThenInclude(t => t.Theme)
-                .ToListAsync());
+            return View();
         }
 
         public IActionResult Privacy()
