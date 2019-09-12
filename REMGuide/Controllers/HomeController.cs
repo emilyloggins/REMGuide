@@ -10,9 +10,14 @@ namespace REMGuide.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        private readonly ApplicationDbContext _context;
+
+        public async Task<IActionResult> Index()
         {
-            return View();
+            return View(await _context.Entry
+                .Include(e => e.ThemeEntries)
+                .ThenInclude(t => t.Theme)
+                .ToListAsync());
         }
 
         public IActionResult Privacy()
