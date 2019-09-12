@@ -14,8 +14,12 @@
             @Html.TextBoxFor(x => x.Entry.Title)
         </div>
         <div>
-            @Html.LabelFor(x => x.Entry.Description)
-            @Html.EditorFor(x => x.Entry.Description)
+            <div class="form-group">
+                <label for="exampleTextarea">What happened in the dream?</label>
+                <textarea class="form-control" id="exampleTextarea" asp-for="Entry.Description" rows="3"></textarea>
+            </div>
+            @*@Html.EditorFor(x => x.Entry.Description)
+            @Html.LabelFor(x => x.Entry.Description)*@
         </div>
         <div>
             @Html.EditorFor(x => x.Themes)
