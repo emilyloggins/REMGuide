@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using REMGuide.Data;
 using REMGuide.Models;
+using REMGuide.Models.ViewModels;
 
 namespace REMGuide.Controllers
 {
@@ -22,13 +23,24 @@ namespace REMGuide.Controllers
         // GET: ThemeEntries
         public async Task<IActionResult> Index()
         {
-            var ThemeCount = _context.ThemeEntry.Select(t => t.ThemeId).Count();
 
             var applicationDbContext = _context.ThemeEntry
-                .Include(t => t.Theme)
-                .OrderByDescending(t => ThemeCount)
-                .GroupBy(t => t.ThemeId)
-                .Take(3);
+            .Include(t => t.Theme)
+            .GroupBy(t => new Tuple<int, string>(t.Theme.Id, t.Theme.Name))
+            .OrderByDescending(g => g.Count())
+            .Take(3)
+            .Select(g => new Theme
+            {
+                Id = g.Key.Item1,
+                Name = g.Key.Item2
+            });
+
+
+            //var applicationDbContext = _context.ThemeEntry
+            //    .Include(t => t.Theme)
+            //    .OrderByDescending(t => ThemeCount)
+            //    .GroupBy(t => t.ThemeId)
+            //    .Take(3);
 
             return View(await applicationDbContext.ToListAsync());
         }
