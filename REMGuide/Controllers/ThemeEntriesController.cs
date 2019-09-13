@@ -21,7 +21,7 @@ namespace REMGuide.Controllers
         }
 
         // GET: ThemeEntries
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
             var vm = new HomePageViewModel();
             vm.TopThemes = new List<Theme>();
