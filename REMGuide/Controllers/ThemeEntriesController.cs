@@ -23,8 +23,10 @@ namespace REMGuide.Controllers
         // GET: ThemeEntries
         public async Task<IActionResult> Index()
         {
+            var vm = new HomePageViewModel();
+            vm.TopThemes = new List<Theme>();
 
-            var applicationDbContext = _context.ThemeEntry
+            var FrequentThemes = _context.ThemeEntry
             .Include(t => t.Theme)
             .GroupBy(t => new Tuple<int, string>(t.Theme.Id, t.Theme.Name))
             .OrderByDescending(g => g.Count())
@@ -33,16 +35,11 @@ namespace REMGuide.Controllers
             {
                 Id = g.Key.Item1,
                 Name = g.Key.Item2
-            });
+            }).ToList();
 
+            vm.TopThemes = FrequentThemes;
 
-            //var applicationDbContext = _context.ThemeEntry
-            //    .Include(t => t.Theme)
-            //    .OrderByDescending(t => ThemeCount)
-            //    .GroupBy(t => t.ThemeId)
-            //    .Take(3);
-
-            return View(await applicationDbContext.ToListAsync());
+            return View(vm);
         }
 
         // GET: ThemeEntries/Details/5
