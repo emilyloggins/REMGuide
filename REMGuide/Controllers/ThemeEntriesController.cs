@@ -21,7 +21,13 @@ namespace REMGuide.Controllers
         }
 
         // GET: ThemeEntries
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
+        {
+            var applicationDbContext = _context.ThemeEntry;
+            return View(await applicationDbContext.ToListAsync());
+        }
+
+        public async Task<IActionResult> FrequentThemes()
         {
             var vm = new HomePageViewModel();
             vm.TopThemes = new List<Theme>();
