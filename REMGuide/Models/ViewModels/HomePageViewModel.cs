@@ -7,7 +7,6 @@ namespace REMGuide.Models.ViewModels
 {
     public class HomePageViewModel
     {
-        public List<Theme> TopThemes { get; set; }
-
+        public ICollection<Theme> TopThemes { get; set; }
     }
 }

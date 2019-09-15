@@ -6,6 +6,8 @@ namespace REMGuide.Models
 {
     public class ApplicationUser : IdentityUser
     {
+        internal string id;
+
         [Required]
         [Display(Name = "First Name")]
         public string FirstName { get; set; }

@@ -7,16 +7,37 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using REMGuide.Data;
 using REMGuide.Models;
+using REMGuide.Models.ViewModels;
 
 namespace REMGuide.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ApplicationDbContext _context;
-
-        public IActionResult Index()
+        public HomeController(ApplicationDbContext context)
         {
-            return View();
+            _context = context;
+        }
+
+        public async Task<IActionResult> Index()
+        {
+            var vm = new HomePageViewModel();
+            vm.TopThemes = new List<Theme>();
+
+            var FrequentThemes = await _context.ThemeEntry
+            .Include(t => t.Theme)
+            .GroupBy(t => new Tuple<int, string>(t.Theme.Id, t.Theme.Name))
+            .OrderByDescending(g => g.Count())
+            .Take(3)
+            .Select(g => new Theme
+            {
+                Id = g.Key.Item1,
+                Name = g.Key.Item2
+            }).ToListAsync();
+
+            vm.TopThemes = FrequentThemes;
+
+            return View(vm);
         }
 
         public IActionResult Privacy()
