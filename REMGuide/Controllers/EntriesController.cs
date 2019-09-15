@@ -18,18 +18,27 @@ namespace REMGuide.Controllers
         private readonly UserManager<ApplicationUser> _userManager;
         private UserManager<ApplicationUser> userManager;
 
-        public EntriesController(ApplicationDbContext context)
+        public EntriesController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
+
+        private Task CurrentUserAsync => throw new NotImplementedException();
+
+        private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
 
         // GET: Entries
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Entry
+            var user = await GetCurrentUserAsync();
+
+                return View(await _context.Entry
                 .Include(e => e.ThemeEntries)
                 .ThenInclude(t => t.Theme)
+                //.Where(e => e.UserId == e.)
                 .ToListAsync());
+            
         }
 
         // GET: Entries/Details/5
