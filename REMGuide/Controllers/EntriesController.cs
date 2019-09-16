@@ -16,15 +16,12 @@ namespace REMGuide.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
-        private UserManager<ApplicationUser> userManager;
 
         public EntriesController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
             _userManager = userManager;
         }
-
-        private Task CurrentUserAsync => throw new NotImplementedException();
 
         private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
 
@@ -36,7 +33,7 @@ namespace REMGuide.Controllers
                 return View(await _context.Entry
                 .Include(e => e.ThemeEntries)
                 .ThenInclude(t => t.Theme)
-                //.Where(e => e.UserId == e.)
+                //.Where(e => e.UserId = user.Id)
                 .ToListAsync());
             
         }
@@ -115,7 +112,6 @@ namespace REMGuide.Controllers
             {
                 return NotFound();
             }
-
             var entry = await _context.Entry.FindAsync(id);
             if (entry == null)
             {

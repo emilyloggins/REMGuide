@@ -261,7 +261,7 @@ namespace REMGuide.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "00000000-ffff-ffff-ffff-ffffffffffff", 0, "f98a4fde-b383-41da-a20d-6e73647e1279", "admin@admin.com", true, "admin", "admin", false, null, "ADMIN@ADMIN.COM", "ADMIN@ADMIN.COM", "AQAAAAEAACcQAAAAENbSlJ8gn8s5RLvW+3hIHkgqi419XEAyMVdjsQXNDx08VKvcXWpMwczsgn21w9yCFQ==", null, false, "7f434309-a4d9-48e9-9ebb-8803db794577", false, "admin@admin.com" });
+                values: new object[] { "00000000-ffff-ffff-ffff-ffffffffffff", 0, "852aff99-9089-44d1-acac-06b6cd1b07bb", "admin@admin.com", true, "admin", "admin", false, null, "ADMIN@ADMIN.COM", "ADMIN@ADMIN.COM", "AQAAAAEAACcQAAAAEOclCuLXjZCrvZP+S82K8UUcOvWMJ2m5s2a4mQLsUr10XgtvOBREhhqws1SAWGUimg==", null, false, "7f434309-a4d9-48e9-9ebb-8803db794577", false, "admin@admin.com" });
 
             migrationBuilder.InsertData(
                 table: "Theme",
@@ -300,8 +300,8 @@ namespace REMGuide.Migrations
                 columns: new[] { "Id", "Date", "Disruptions", "UserId" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2019, 9, 11, 7, 18, 17, 139, DateTimeKind.Local).AddTicks(948), 2, "00000000-ffff-ffff-ffff-ffffffffffff" },
-                    { 2, new DateTime(2019, 9, 11, 7, 18, 17, 141, DateTimeKind.Local).AddTicks(4659), 4, "00000000-ffff-ffff-ffff-ffffffffffff" }
+                    { 1, new DateTime(2019, 9, 16, 11, 42, 39, 953, DateTimeKind.Local).AddTicks(7511), 2, "00000000-ffff-ffff-ffff-ffffffffffff" },
+                    { 2, new DateTime(2019, 9, 16, 11, 42, 39, 956, DateTimeKind.Local).AddTicks(7431), 4, "00000000-ffff-ffff-ffff-ffffffffffff" }
                 });
 
             migrationBuilder.InsertData(

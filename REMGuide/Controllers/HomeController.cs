@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using REMGuide.Data;
@@ -14,13 +15,21 @@ namespace REMGuide.Controllers
     public class HomeController : Controller
     {
         private readonly ApplicationDbContext _context;
-        public HomeController(ApplicationDbContext context)
+        private UserManager<ApplicationUser> _userManager;
+
+        public HomeController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
+        private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
+
 
         public async Task<IActionResult> Index()
         {
+            var user = await _userManager.GetUserAsync(HttpContext.User);
+            if (user != null)
+            {
             var vm = new HomePageViewModel();
             vm.TopThemes = new List<Theme>();
 
@@ -38,8 +47,16 @@ namespace REMGuide.Controllers
             vm.TopThemes = FrequentThemes;
 
             return View(vm);
+            }
+            else
+            {
+                return View();
+            }
         }
-
+        public async Task<IActionResult> NoUser()
+        {
+            return View();
+        }
         public IActionResult Privacy()
         {
             return View();
