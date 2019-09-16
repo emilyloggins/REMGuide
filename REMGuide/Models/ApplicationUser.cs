@@ -5,8 +5,7 @@ using Microsoft.AspNetCore.Identity;
 namespace REMGuide.Models
 {
     public class ApplicationUser : IdentityUser
-    {
-        internal string id;
+    { 
 
         [Required]
         [Display(Name = "First Name")]
