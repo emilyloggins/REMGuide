@@ -10,13 +10,13 @@
 @if(SignInManager.IsSignedIn(User))
 {
     <div class="text-center">
-        <img src="~/img/guide.png" width="200px" />
+        <img src="~/img/sleep.png" width="200px" />
         <h2 class="display-4">Good Morning!</h2>
-        <button type="button" asp-action="Create" asp-controller="Entries" class="btn btn-warning">What did you dream about?</button>
+        <button type="button" asp-action="Create" asp-controller="Entries" class="btn" style="color: magenta">What did you dream about?</button>
     </div>
 
-<div class="topThemes" style="max-width: 20rem;">
-     <h3>These are the themes you dream of most.</h3>
+<div class="topThemes" style="max-width: 25rem;">
+     <h3>Looks like recently you've been dreaming about...</h3>
     <ul class="list-group">
         @foreach (var item in Model.TopThemes)
         {
