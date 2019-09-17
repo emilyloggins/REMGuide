@@ -194,7 +194,7 @@ namespace REMGuide.Migrations
                         {
                             Id = "00000000-ffff-ffff-ffff-ffffffffffff",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "adfdc86e-78f0-41df-9864-981b4cc9413f",
+                            ConcurrencyStamp = "d1a03662-f514-456a-8f0e-762ee8ad5e4c",
                             Email = "admin@admin.com",
                             EmailConfirmed = true,
                             FirstName = "admin",
@@ -202,7 +202,7 @@ namespace REMGuide.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEN3JPKziZbh/41SmlH4nU8IGru70ruthFWxHOg4PiVK48+QyMyfilejD0B0qeIbJGw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEDTJg6wtWMTxNQpt/iU9szDmSdprfG0Eq/V2WmoFNrPvVxfkEEHWTKl8QG7BvejsTw==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "7f434309-a4d9-48e9-9ebb-8803db794577",
                             TwoFactorEnabled = false,
@@ -278,6 +278,8 @@ namespace REMGuide.Migrations
 
                     b.Property<int>("Disruptions");
 
+                    b.Property<int>("Month");
+
                     b.Property<string>("UserId");
 
                     b.HasKey("Id");
@@ -290,15 +292,17 @@ namespace REMGuide.Migrations
                         new
                         {
                             Id = 1,
-                            Date = new DateTime(2019, 9, 17, 9, 19, 53, 608, DateTimeKind.Local).AddTicks(106),
+                            Date = new DateTime(2019, 9, 17, 15, 4, 51, 977, DateTimeKind.Local).AddTicks(9960),
                             Disruptions = 2,
+                            Month = 0,
                             UserId = "00000000-ffff-ffff-ffff-ffffffffffff"
                         },
                         new
                         {
                             Id = 2,
-                            Date = new DateTime(2019, 9, 17, 9, 19, 53, 612, DateTimeKind.Local).AddTicks(6539),
+                            Date = new DateTime(2019, 9, 17, 15, 4, 51, 983, DateTimeKind.Local).AddTicks(5141),
                             Disruptions = 4,
+                            Month = 0,
                             UserId = "00000000-ffff-ffff-ffff-ffffffffffff"
                         });
                 });

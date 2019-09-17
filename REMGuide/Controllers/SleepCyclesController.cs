@@ -71,15 +71,15 @@ namespace REMGuide.Controllers
             if (ModelState.IsValid)
             {
                 var date = DateTime.Now;
-                sleepCycle.UserId.Equals(user.Id);
-                sleepCycle.Date.Equals(date.Month);
+                sleepCycle.UserId = user.Id;
+                sleepCycle.Month = date.Month;
                 _context.Add(sleepCycle);
                 
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index", "Home");
             }
             ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", sleepCycle.UserId);
-            return View(sleepCycle);
+            return View();
         }
 
         // GET: SleepCycles/Edit/5

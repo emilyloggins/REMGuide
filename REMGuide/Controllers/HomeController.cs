@@ -49,6 +49,17 @@ namespace REMGuide.Controllers
 
             vm.TopThemes = FrequentThemes;
 
+            var date = DateTime.Now;
+
+                var AvgDisruptions = _context.SleepCycle
+                .Include(s => s.Disruptions)
+                .Where(s => s.UserId == user.Id && s.Month == date.Month)
+                .Average(s => s.Disruptions);
+
+                var AvgDisruptionsRounded = Math.Round(AvgDisruptions);
+
+            vm.AvgDisruptions = AvgDisruptionsRounded;
+
             return View(vm);
             }
             else

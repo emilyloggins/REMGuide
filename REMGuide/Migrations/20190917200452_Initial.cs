@@ -198,6 +198,7 @@ namespace REMGuide.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     UserId = table.Column<string>(nullable: true),
                     Date = table.Column<DateTime>(nullable: false),
+                    Month = table.Column<int>(nullable: false),
                     Disruptions = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -261,7 +262,7 @@ namespace REMGuide.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "00000000-ffff-ffff-ffff-ffffffffffff", 0, "852aff99-9089-44d1-acac-06b6cd1b07bb", "admin@admin.com", true, "admin", "admin", false, null, "ADMIN@ADMIN.COM", "ADMIN@ADMIN.COM", "AQAAAAEAACcQAAAAEOclCuLXjZCrvZP+S82K8UUcOvWMJ2m5s2a4mQLsUr10XgtvOBREhhqws1SAWGUimg==", null, false, "7f434309-a4d9-48e9-9ebb-8803db794577", false, "admin@admin.com" });
+                values: new object[] { "00000000-ffff-ffff-ffff-ffffffffffff", 0, "d1a03662-f514-456a-8f0e-762ee8ad5e4c", "admin@admin.com", true, "admin", "admin", false, null, "ADMIN@ADMIN.COM", "ADMIN@ADMIN.COM", "AQAAAAEAACcQAAAAEDTJg6wtWMTxNQpt/iU9szDmSdprfG0Eq/V2WmoFNrPvVxfkEEHWTKl8QG7BvejsTw==", null, false, "7f434309-a4d9-48e9-9ebb-8803db794577", false, "admin@admin.com" });
 
             migrationBuilder.InsertData(
                 table: "Theme",
@@ -297,11 +298,11 @@ namespace REMGuide.Migrations
 
             migrationBuilder.InsertData(
                 table: "SleepCycle",
-                columns: new[] { "Id", "Date", "Disruptions", "UserId" },
+                columns: new[] { "Id", "Date", "Disruptions", "Month", "UserId" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2019, 9, 16, 11, 42, 39, 953, DateTimeKind.Local).AddTicks(7511), 2, "00000000-ffff-ffff-ffff-ffffffffffff" },
-                    { 2, new DateTime(2019, 9, 16, 11, 42, 39, 956, DateTimeKind.Local).AddTicks(7431), 4, "00000000-ffff-ffff-ffff-ffffffffffff" }
+                    { 1, new DateTime(2019, 9, 17, 15, 4, 51, 977, DateTimeKind.Local).AddTicks(9960), 2, 0, "00000000-ffff-ffff-ffff-ffffffffffff" },
+                    { 2, new DateTime(2019, 9, 17, 15, 4, 51, 983, DateTimeKind.Local).AddTicks(5141), 4, 0, "00000000-ffff-ffff-ffff-ffffffffffff" }
                 });
 
             migrationBuilder.InsertData(
