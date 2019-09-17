@@ -76,10 +76,10 @@ namespace REMGuide.Controllers
                 _context.Add(sleepCycle);
                 
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index", "Home");
             }
             ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", sleepCycle.UserId);
-            return RedirectToAction("Index", "Home");
+            return View();
         }
 
         // GET: SleepCycles/Edit/5

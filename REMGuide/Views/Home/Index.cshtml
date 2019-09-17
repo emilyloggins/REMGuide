@@ -6,7 +6,7 @@
 @{
     ViewData["Title"] = "Home Page";
 }
-
+ 
 <div class="text-center">
     <img src="~/img/sleep.png" width="200px" style="padding-top: 13px" />
 </div>
@@ -35,7 +35,7 @@
             <h3>This month you've had an average of</h3>
             <div style="min-width: 15rem; padding: 1.5em">
                 <a asp-action="Create" asp-controller="SleepCycles" style="text-decoration: none">
-                    <h2 class="text-center" style="color: #399cbd; font-size:90px;">4</h2>
+                    <h2 class="text-center" style="color: #399cbd; font-size:90px;">@Model.AvgDisruptions</h2>
                 </a>
             </div>
             <h3>sleep disruptions per night.</h3>
