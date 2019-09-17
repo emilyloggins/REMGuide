@@ -11,6 +11,7 @@ namespace REMGuide.Models
         public string UserId { get; set; }
         public ApplicationUser User { get; set; }
         public DateTime Date { get; set; }
+        public int Month { get; set; }
         public int Disruptions { get; set; }
     }
 }
