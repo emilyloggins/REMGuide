@@ -35,6 +35,9 @@ namespace REMGuide.Controllers
 
             var FrequentThemes = await _context.ThemeEntry
             .Include(t => t.Theme)
+            .Include(t => t.Entry)
+            .ThenInclude(e => e.UserId)
+            .Where(e => e.Entry.UserId == user.Id)
             .GroupBy(t => new Tuple<int, string>(t.Theme.Id, t.Theme.Name))
             .OrderByDescending(g => g.Count())
             .Take(3)

@@ -9,6 +9,7 @@ namespace REMGuide.Models
     {
         public int Id { get; set; }
         public int EntryId { get; set; }
+        public Entry Entry { get; set; }
         public int ThemeId { get; set; }
         public virtual Theme Theme { get; set; }
     }

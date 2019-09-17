@@ -2,27 +2,35 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using REMGuide.Data;
 using REMGuide.Models;
+using REMGuide.Models.ViewModels;
 
 namespace REMGuide.Controllers
 {
     public class SleepCyclesController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public SleepCyclesController(ApplicationDbContext context)
+        public SleepCyclesController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
+
+        private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
 
         // GET: SleepCycles
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.SleepCycle.Include(s => s.User);
+            var vm = new HomePageViewModel();
+
+            var applicationDbContext = _context.SleepCycle.Include(s => s.User).Include(s => s.Disruptions);
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -59,9 +67,14 @@ namespace REMGuide.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,UserId,Date,Disruptions")] SleepCycle sleepCycle)
         {
+            var user = await GetCurrentUserAsync();
             if (ModelState.IsValid)
             {
+                var date = DateTime.Now;
+                sleepCycle.UserId.Equals(user.Id);
+                sleepCycle.Date.Equals(date.Month);
                 _context.Add(sleepCycle);
+                
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
