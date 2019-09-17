@@ -2,33 +2,51 @@
 @model REMGuide.Models.ViewModels.HomePageViewModel
 @using REMGuide.Models;
 @using  Microsoft.AspNetCore.Identity
-@inject  SignInManager<ApplicationUser> SignInManager
+@inject SignInManager<ApplicationUser> SignInManager
 @{
     ViewData["Title"] = "Home Page";
 }
 
-@if(SignInManager.IsSignedIn(User))
+<div class="text-center">
+    <img src="~/img/sleep.png" width="200px" style="padding-top: 13px" />
+</div>
+@if (SignInManager.IsSignedIn(User))
 {
     <div class="text-center">
-        <img src="~/img/sleep.png" width="200px" />
-        <h2 class="display-4">Good Morning!</h2>
-        <button type="button" asp-action="Create" asp-controller="Entries" class="btn" style="color: magenta">What did you dream about?</button>
+        <h2 class="display-4">Dream Stats</h2>
     </div>
-
-<div class="topThemes" style="max-width: 25rem;">
-     <h3>Looks like recently you've been dreaming about...</h3>
-    <ul class="list-group">
-        @foreach (var item in Model.TopThemes)
-        {
-        <li class="list-group-item list-group-item-action active">
-            @Html.DisplayFor(modelItem => item.Name)
-        </li>
-        }
-        </ul>
-</div>
+    <div style="display: flex; justify-content: space-around; padding-top: 4em;">
+        <div class="topThemes" style="max-width: 25rem;">
+            <h3>Looks like recently you've been dreaming about...</h3>
+            <ul class="list-group">
+                @if (Model.TopThemes == null)
+                {
+                    <p>Looks like you don't have any entries yet.</p>
+                }
+                @foreach (var item in Model.TopThemes)
+                {
+                    <li class="list-group-item" style="color: #399cbd; font-size: 30px; border: none">
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </li>
+                }
+            </ul>
+        </div>
+        <div class="avgDisruptions" style="max-width: 25rem;">
+            <h3>This month you've had an average of</h3>
+            <div style="min-width: 15rem; padding: 1.5em">
+                <a asp-action="Create" asp-controller="SleepCycles" style="text-decoration: none">
+                    <h2 class="text-center" style="color: #399cbd; font-size:90px;">4</h2>
+                </a>
+            </div>
+            <h3>sleep disruptions per night.</h3>
+        </div>
+    </div>
+    <div class="text-center" style="margin-top: 5em">
+        <a type="submit" asp-action="Create" asp-controller="Entries" class="btn btn-primary">Any dreams last night?</a>
+    </div>
 }
 else
 {
-    <p>NO USER!</p>
+    <a asp-action="Account/Register" style="display: flex; text-decoration: none; font-weight: bold; color: magenta"><h2 class="text-center" style="color: #399cbd">Create an account to start recording your dreams!</h2><i class="fas fa-arrow-right" style="color: magenta; padding-left: 1em; font-size: 30px;"></i></a>
 }
 

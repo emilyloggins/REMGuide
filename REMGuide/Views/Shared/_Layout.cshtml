@@ -13,14 +13,16 @@
               asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
               asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute"
               crossorigin="anonymous"
-              integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"/>
+              integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" />
     </environment>
     <link rel="stylesheet" href="~/css/site.css" />
+    <script src="https://kit.fontawesome.com/add6fb1672.js"></script>
 </head>
 <body>
     <header>
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-            <a class="navbar-brand" href="#" style="color: magenta">REM Guide</a>
+            <a class="navbar-brand" href="#" style="color: magenta">REM Guide<img src="~/img/zzz-sleep-symbol.png" width="25px" style="padding: 0 0 28px 2px" /></a>
+
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -28,18 +30,16 @@
             <div class="collapse navbar-collapse" id="navbarColor01">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
-                        <a class="nav-link" asp-area="" asp-controller="Home" style="color: magenta" asp-action="Index">Home</a>
+                        <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" asp-area="" asp-controller="Entries" style="color: magenta" asp-action="Index">Entries</a>
+                        <a class="nav-link" asp-area="" asp-controller="Entries" asp-action="Index">Entries</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" asp-area="" asp-controller="SleepCycles" style="color: magenta" asp-action="Index">Sleep Quality</a>
+                        <a class="nav-link" asp-area="" asp-controller="SleepCycles" asp-action="Index">Sleep Quality</a>
                     </li>
                 </ul>
-                <form class="form-inline my-2 my-lg-0">
                 <partial name="_LoginPartial" />
-                </form>
             </div>
         </nav>
     </header>

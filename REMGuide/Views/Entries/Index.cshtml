@@ -1,40 +1,42 @@
 ﻿@model IEnumerable<REMGuide.Models.Entry>
-
+@using REMGuide.Models;
+@using  Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
 @{
     ViewData["Title"] = "Index";
 }
+<h1 style="color: #399cbd; margin-top: 1em;">Your Entries</h1>
+<a type="button" asp-action="Create" class="btn btn-primary" style="margin: 5px">NEW</a>
 
-<h1>your entries</h1>
-<p>
-<button type="button" asp-action="Create" class="btn btn-warning">New Entry</button>
-</p>
-
-@foreach (var item in Model)
+@if (SignInManager.IsSignedIn(User))
 {
-    <div class="card text-white bg-primary mb-3" style="max-width: 20rem;">
-
-        <div class="card-header">
-            @Html.DisplayFor(modelItem => item.Date)
-        </div>
-        <div class="card-body">
-            <h4 class="card-title">
-                @Html.DisplayFor(modelItem => item.Title)
-            </h4>
-            <p class="card-text">
-                @Html.DisplayFor(modelItem => item.Description)
-            </p>
-        </div>
-        <div class="card-footer small bg-transparent border-dark">
-            @foreach (var i in item.ThemeEntries)
-            {
-                @Html.DisplayFor(modelItem => i.Theme.Name) <br />
-            }
-        </div>
+    <div style="display: flex; width: 100rem;">
+        @foreach (var item in Model)
+        {
+            <div class="card text-white bg-primary mb-3" style="max-width: 20rem; min-width: 20rem; margin: 5px;">
+                <div class="card-header">
+                    @Html.DisplayFor(modelItem => item.Date)
+                    <a asp-action="Delete" asp-route-id="@item.Id"><i class="far fa-minus-square" style="float: right; color: white; margin: 3px;"></i></a>
+                    <a asp-action="Edit" asp-route-id="@item.Id"><i class="fas fa-highlighter" style="float: right; color: white; margin: 3px;"></i></a>
+                </div>
+                <div class="card-body">
+                    <span style="display:flex">
+                        <h4 class="card-title" style="color: magenta">
+                           @Html.DisplayFor(modelItem => item.Title)
+                        </h4>
+                    </span>
+                    <p class="card-text">
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </p>
+                </div>
+                <div class="card-footer small bg-transparent border-dark">
+                    @foreach (var i in item.ThemeEntries)
+                    {
+                        @Html.DisplayFor(modelItem => i.Theme.Name) <br />
+                    }
+                </div>
+            </div>
+        }
     </div>
 }
 
-@*<td>
-            <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-            <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-            <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-</td>*@

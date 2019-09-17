@@ -31,11 +31,10 @@ namespace REMGuide.Controllers
             var user = await GetCurrentUserAsync();
 
                 return View(await _context.Entry
+                .Where(e => e.UserId == user.Id)
                 .Include(e => e.ThemeEntries)
                 .ThenInclude(t => t.Theme)
-                //.Where(e => e.UserId = user.Id)
                 .ToListAsync());
-            
         }
 
         // GET: Entries/Details/5
@@ -84,6 +83,7 @@ namespace REMGuide.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,UserId,Title,Description,Date")] Entry entry, CreateEntryViewModel model)
         {
+            var user = await GetCurrentUserAsync();
             if (ModelState.IsValid)
             {
                 var selected = model.Themes.Where(x => x.IsChecked).Select(x => x.Id).ToList();
@@ -98,21 +98,25 @@ namespace REMGuide.Controllers
                     };
                     entry.ThemeEntries.Add(te);
                 }
+                entry.UserId = user.Id;
                 _context.Add(entry);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+
             return View(entry);
         }
 
         // GET: Entries/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            var user = await GetCurrentUserAsync();
             if (id == null)
             {
                 return NotFound();
             }
             var entry = await _context.Entry.FindAsync(id);
+            entry.UserId = user.Id;
             if (entry == null)
             {
                 return NotFound();
