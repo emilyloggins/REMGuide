@@ -110,11 +110,13 @@ namespace REMGuide.Controllers
         // GET: Entries/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            var user = await GetCurrentUserAsync();
             if (id == null)
             {
                 return NotFound();
             }
             var entry = await _context.Entry.FindAsync(id);
+            entry.UserId = user.Id;
             if (entry == null)
             {
                 return NotFound();
