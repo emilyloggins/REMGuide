@@ -10,8 +10,8 @@ using REMGuide.Data;
 namespace REMGuide.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190917200452_Initial")]
-    partial class Initial
+    [Migration("20190918162529_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -196,7 +196,7 @@ namespace REMGuide.Migrations
                         {
                             Id = "00000000-ffff-ffff-ffff-ffffffffffff",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "d1a03662-f514-456a-8f0e-762ee8ad5e4c",
+                            ConcurrencyStamp = "c1ce035f-391a-4b70-bb92-c79c55534afb",
                             Email = "admin@admin.com",
                             EmailConfirmed = true,
                             FirstName = "admin",
@@ -204,7 +204,7 @@ namespace REMGuide.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEDTJg6wtWMTxNQpt/iU9szDmSdprfG0Eq/V2WmoFNrPvVxfkEEHWTKl8QG7BvejsTw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEHmT+fHXh6PObgvMdmqWAWPMKQ4WMHYMzszvygoTkBSCgaTUqWLKae0UYmANEHeg/g==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "7f434309-a4d9-48e9-9ebb-8803db794577",
                             TwoFactorEnabled = false,
@@ -255,7 +255,7 @@ namespace REMGuide.Migrations
                         new
                         {
                             Id = 1,
-                            Date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Date = new DateTime(2019, 9, 18, 0, 0, 0, 0, DateTimeKind.Local),
                             Description = "In the beginning, Heather and I were hanging out, wondering what we could do for fun. So we went to Walmart and bought 1000 marshmellows, and filled the bathtub with as many as we could. After that we ate all of them and I threw up on Heather",
                             Title = "Bathtub Full of Marshmellows",
                             UserId = "00000000-ffff-ffff-ffff-ffffffffffff"
@@ -263,7 +263,7 @@ namespace REMGuide.Migrations
                         new
                         {
                             Id = 2,
-                            Date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Date = new DateTime(2019, 9, 18, 0, 0, 0, 0, DateTimeKind.Local),
                             Description = "I was flying over the entire earth, and I saw all of my friends and family waving at me from high above the clouds. I waved back at them, and kept flying until I get to France. In France I ate a croissant.",
                             Title = "Flying",
                             UserId = "00000000-ffff-ffff-ffff-ffffffffffff"
@@ -294,17 +294,17 @@ namespace REMGuide.Migrations
                         new
                         {
                             Id = 1,
-                            Date = new DateTime(2019, 9, 17, 15, 4, 51, 977, DateTimeKind.Local).AddTicks(9960),
+                            Date = new DateTime(2019, 9, 18, 11, 25, 27, 189, DateTimeKind.Local).AddTicks(8609),
                             Disruptions = 2,
-                            Month = 0,
+                            Month = 9,
                             UserId = "00000000-ffff-ffff-ffff-ffffffffffff"
                         },
                         new
                         {
                             Id = 2,
-                            Date = new DateTime(2019, 9, 17, 15, 4, 51, 983, DateTimeKind.Local).AddTicks(5141),
+                            Date = new DateTime(2019, 9, 18, 11, 25, 27, 189, DateTimeKind.Local).AddTicks(9173),
                             Disruptions = 4,
-                            Month = 0,
+                            Month = 9,
                             UserId = "00000000-ffff-ffff-ffff-ffffffffffff"
                         });
                 });
@@ -314,6 +314,8 @@ namespace REMGuide.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Description");
 
                     b.Property<string>("Name");
 
@@ -325,82 +327,92 @@ namespace REMGuide.Migrations
                         new
                         {
                             Id = 1,
+                            Description = "A stress dream or anxiety dream is an unpleasant dream which is characterized by feelings of distress, unease, and apprehension. Dreams may include falling, being naked in public, or loss of teeth.",
                             Name = "Stress"
                         },
                         new
                         {
                             Id = 2,
-                            Name = "Rebirth"
+                            Description = "A healing may represent some area of your life that is being restored. Emotional repair or the restoration of abilities. Healing in a dream may also reflect progress, or difficulties that you are moving on from.",
+                            Name = "Healing"
                         },
                         new
                         {
                             Id = 3,
+                            Description = "Romance in a dream may represent your desire or longing for a personal relationship with someone. Alternatively, it may be a sign that you to too obsessed with something.",
                             Name = "Romance"
                         },
                         new
                         {
                             Id = 4,
+                            Description = "To dream of a friend represents a quality in yourself based on your most honest feelings about them. Ask yourself what memories or feelings stand out the most about them and see how that quality may apply to your own life.",
                             Name = "Friendship"
                         },
                         new
                         {
                             Id = 5,
-                            Name = "Abandonment"
+                            Description = "To have a distressful dream may mean that you are feeling incapable of dealing with a problem on your own, or fearing that a problem is impossible. Alternatively, it may be a sign that you are worrying too much about a problem that you don't have enough information about yet.",
+                            Name = "Distress"
                         },
                         new
                         {
                             Id = 6,
+                            Description = "Dreams concerning loss may suggest that your personality or life situation is transforming for better or worse. An area of your life has come to an end, or roles are shifting. You may also be preoccupied with someone else's death or illness.",
                             Name = "Loss"
                         },
                         new
                         {
                             Id = 7,
+                            Description = "To dream of a family member represents a quality in yourself based on your most honest feelings about them. Alternatively, a dreaming of a family gathering may reflect the various or conflicting aspects of your character as you deal with a situation or problem.",
                             Name = "Family"
                         },
                         new
                         {
                             Id = 8,
+                            Description = "To dream of an adventure may represent an aspect of yourself that seeks out new challenges or exciting experiences. Perhaps it's time to try new things, take chances, or expand your horizons.",
                             Name = "Adventure"
                         },
                         new
                         {
                             Id = 9,
-                            Name = "Charity"
+                            Description = "To dream of failure may represent feelings of inadequacy. You may have been unable to prove yourself in a tough situation. Could be a sign that you are allowing pressure to get to you.",
+                            Name = "Failure"
                         },
                         new
                         {
                             Id = 10,
-                            Name = "Study"
+                            Description = "To dream of an achievement represents satisfaction with the outcome of a situation, plan, or project.",
+                            Name = "Achievement"
                         },
                         new
                         {
                             Id = 11,
+                            Description = "Dreams of violence may represent mental or emotional conflict or struggle with certain aspects of your personality. You may have negative thoughts or emotions like fears, desires, guilt, envy, or other issues that you are confronting or struggling with in your waking life.",
                             Name = "Violence"
                         },
                         new
                         {
                             Id = 12,
-                            Name = "Escape"
+                            Description = "To dream of fear may reflect a waking life situation that gives you anxiety. It may also reflect an unconscious aversion you have in real life.",
+                            Name = "Fear"
                         },
                         new
                         {
                             Id = 13,
-                            Name = "Fun"
+                            Description = "Joyful dreams may refelct feelings of relief, comfort, or contentment with how a situation has turned out in your waking life.",
+                            Name = "Joy"
                         },
                         new
                         {
                             Id = 14,
+                            Description = "Dreams that make you feel confused may mirror waking life situations where you are unsure. You may be allowing your sense of obligation or obsession with problem solving to frustrate you or distract you.",
                             Name = "Confusion"
                         },
                         new
                         {
                             Id = 15,
+                            Description = "To dream of jealousy may represent a concern that some area of your life will be too powerful for you. You may fear that someone or something will get out of control.",
                             Name = "Jealousy"
-                        },
-                        new
-                        {
-                            Id = 16,
-                            Name = "Insanity"
                         });
                 });
 

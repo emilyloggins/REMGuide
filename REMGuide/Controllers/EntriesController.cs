@@ -98,6 +98,7 @@ namespace REMGuide.Controllers
                     };
                     entry.ThemeEntries.Add(te);
                 }
+                entry.Date = DateTime.Today;
                 entry.UserId = user.Id;
                 _context.Add(entry);
                 await _context.SaveChangesAsync();

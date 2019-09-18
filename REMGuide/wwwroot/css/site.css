@@ -58,3 +58,7 @@ body {
 button {
     background-color: magenta;
 }
+
+.topThemes:hover {
+    cursor: pointer;
+}
