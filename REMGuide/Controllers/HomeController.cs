@@ -35,16 +35,18 @@ namespace REMGuide.Controllers
 
             var FrequentThemes = await _context.ThemeEntry
             .Include(t => t.Theme)
+            .ThenInclude(t => t.Description)
             .Include(t => t.Entry)
             .ThenInclude(e => e.UserId)
             .Where(e => e.Entry.UserId == user.Id)
-            .GroupBy(t => new Tuple<int, string>(t.Theme.Id, t.Theme.Name))
+            .GroupBy(t => new Tuple<int, string, string>(t.Theme.Id, t.Theme.Name, t.Theme.Description))
             .OrderByDescending(g => g.Count())
             .Take(3)
             .Select(g => new Theme
             {
                 Id = g.Key.Item1,
-                Name = g.Key.Item2
+                Name = g.Key.Item2,
+                Description = g.Key.Item3
             }).ToListAsync();
 
             vm.TopThemes = FrequentThemes;
