@@ -56,9 +56,14 @@ namespace REMGuide.Controllers
                 .Where(s => s.UserId == user.Id && s.Month == date.Month)
                 .Average(s => s.Disruptions);
 
-                var AvgDisruptionsRounded = Math.Round(AvgDisruptions);
+                if (AvgDisruptions != 0)
+                {
+                    var AvgDisruptionsRounded = Math.Round(AvgDisruptions);
+                    vm.AvgDisruptions = AvgDisruptionsRounded;
+                }
 
-            vm.AvgDisruptions = AvgDisruptionsRounded;
+                else vm.AvgDisruptions = 0;
+
 
             return View(vm);
             }
