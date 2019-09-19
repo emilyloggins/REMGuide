@@ -66,6 +66,14 @@ namespace REMGuide.Data
                     Date = DateTime.Today,
                     Title = "Flying",
                     Description = "I was flying over the entire earth, and I saw all of my friends and family waving at me from high above the clouds. I waved back at them, and kept flying until I get to France. In France I ate a croissant."
+                },
+                new Entry()
+                {
+                    Id = 3,
+                    UserId = user.Id,
+                    Date = DateTime.Today,
+                    Title = "Alien Invasion",
+                    Description = "They came from the sky. And when they came, they took everyone. The spaceship was cold and metal, but they had some dank chips and salsa tho"
                 }
             );
 
@@ -92,19 +100,43 @@ namespace REMGuide.Data
                 {
                     Id = 1,
                     EntryId = 1,
-                    ThemeId = 2
+                    ThemeId = 1
                 },
                 new ThemeEntry()
                 {
                     Id = 2,
                     EntryId = 1,
-                    ThemeId = 9
+                    ThemeId = 4
                 },
                 new ThemeEntry()
                 {
                     Id = 3,
                     EntryId = 2,
-                    ThemeId = 5
+                    ThemeId = 8
+                },
+                new ThemeEntry()
+                {
+                    Id = 4,
+                    EntryId = 2,
+                    ThemeId = 8
+                },
+                new ThemeEntry()
+                {
+                    Id = 5,
+                    EntryId = 2,
+                    ThemeId = 13
+                },
+                new ThemeEntry()
+                {
+                    Id = 6,
+                    EntryId = 3,
+                    ThemeId = 1
+                },
+                new ThemeEntry()
+                {
+                    Id = 7,
+                    EntryId = 3,
+                    ThemeId = 11
                 }
             );
 
@@ -119,7 +151,7 @@ namespace REMGuide.Data
                 {
                     Id = 2,
                     Name = "Healing",
-                    Description = "A healing may represent some area of your life that is being restored. Emotional repair or the restoration of abilities. Healing in a dream may also reflect progress, or difficulties that you are moving on from."
+                    Description = "A dream about healing may represent some area of your life that is being restored. Emotional repair or the restoration of abilities. Healing in a dream may also reflect progress, or difficulties that you are moving on from."
                 },
                 new Theme()
                 {

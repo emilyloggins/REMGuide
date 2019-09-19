@@ -5,12 +5,12 @@
 @{
     ViewData["Title"] = "Index";
 }
-<h1 style="color: #399cbd; margin-top: 1em;">Your Entries</h1>
-<a type="button" asp-action="Create" class="btn btn-primary" style="margin: 5px">NEW</a>
+<h1 style="color: #399cbd; margin-top: 1em;">Your little treasure trove of dreams.</h1>
+<a type="button" asp-action="Create" class="btn btn-primary" style="margin: 5px; margin-top: 2em;">NEW</a>
 
 @if (SignInManager.IsSignedIn(User))
 {
-    <div style="display: flex; width: 100rem;">
+    <div style="display: flex; width: 100rem; padding-top: 2em;">
         @foreach (var item in Model)
         {
             <div class="card text-white bg-primary mb-3" style="max-width: 20rem; min-width: 20rem; margin: 5px;">

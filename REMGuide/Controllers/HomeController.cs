@@ -60,7 +60,8 @@ namespace REMGuide.Controllers
 
                 if (AvgDisruptions != 0)
                 {
-                    var AvgDisruptionsRounded = Math.Round(AvgDisruptions);
+                    var AvgDisruptionsRounded = Math.Round(AvgDisruptions * 100) / 100;
+                    //var AvgDisruptionsRounded = AvgDisruptions.toFixed(2);
                     vm.AvgDisruptions = AvgDisruptionsRounded;
                 }
 
