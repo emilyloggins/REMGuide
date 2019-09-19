@@ -15,13 +15,15 @@
 
 @if (SignInManager.IsSignedIn(User))
 {
-    <div class="text-center">
-        <h2 class="display-4">Dream Stats</h2>
-    </div>
+<div class="text-center">
+    <h2 class="display-4">Sleep stats</h2>
+    <h5 style="color: magenta">Dreaming is like overnight therapy. Find out what your sleep is saying about you.</h5>
+</div>
     <div style="display: flex; justify-content: space-around; padding-top: 3em;">
         <div class="topThemes" style="max-width: 25rem;">
-            <h3>Looks like recently you've been dreaming about...</h3>
+            <h3>Looks like you're most common dream themes are:</h3>
             <ul class="list-group">
+            <p style="color: magenta"><em>Click a theme to read some common interpretations</em></p>
 
                 @foreach (var item in Model.TopThemes)
                 {
@@ -30,11 +32,11 @@
                     </li>
                 }
             </ul>
-            <p><em>Click to read some common interpretations!</em></p>
+
         </div>
         <div class="avgDisruptions" style="max-width: 25rem;">
             <h3>This month you've had an average of</h3>
-            <div style="min-width: 15rem; padding: 1.5em">
+            <div style="min-width: 15rem; padding: 3.5em">
                 <a asp-action="Create" asp-controller="SleepCycles" style="text-decoration: none">
                     <h2 class="text-center" style="color: #399cbd; font-size:90px;">@Model.AvgDisruptions</h2>
                 </a>
@@ -42,7 +44,7 @@
             <h3>sleep disruptions per night.</h3>
         </div>
     </div>
-    <div class="text-center" style="margin-top: 5em">
+    <div class="text-center" style="margin-top: 3em">
         <a type="submit" asp-action="Create" asp-controller="Entries" class="btn btn-primary">Any dreams last night?</a>
     </div>
 }
